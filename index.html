@@ -1,21 +1,55 @@
 <html>
-    <head>
-        <link rel="stylesheet" href="styles.css">
-    </head>
-    <body>
-        <div id="wrapper">
-            <!-- headers -->
-            <h1>WebSockets Echo Demo</h1>
-            <button type="submit" id="open_ws">Open WS</button>
-            <div id="status">Status: Not connected</div>
-            <!-- message table -->
-            <ul id="table"></ul>
-            <!-- form -->
-            <form id="form">
-                <textarea id="message" placeholder="Write your message here..." required></textarea>
-                <button type="submit">Send Message</button>
-                <button id="clos">Close Connection</button>
-            </form>
-        </div>
-    </body>
+
+<head>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+
+<body>
+  <div id="wrapper">
+    <!-- headers -->
+    <h1>WebSockets Echo Demo</h1>
+    <button type="submit" id="open_ws">Open WS</button>
+    <div id="status">Status: Not connected</div>
+    <!-- message table -->
+    <ul id="table"></ul>
+    <!-- form -->
+    <form id="form">
+      <textarea id="message" placeholder="Write your message here..." required></textarea>
+      <button type="submit">Send Message</button>
+      <button id="close_ws">Close Connection</button>
+    </form>
+  </div>
+
+  <script>
+    let open_ws_btn = document.getElementById("open_ws");
+    let close_ws_btn = document.getElementById("close_ws");
+    let form = document.getElementById("form");
+
+    let socketStatus = document.getElementById("status");
+
+    let table = document.getElementsByTagName("ul")[0];
+    let message = document.getElementById("message");
+
+    // websocket server
+
+    open_ws_btn.addEventListener("click", () => {
+      open_ws_btn.disabled = true;
+      open_ws_btn.style.background = "gray";
+      open_ws_btn.style.pointerEvents = "none";
+      open_ws_btn.textContent = "Button disabled";
+
+      socketStatus.innerHTML = "Connecting ...";
+
+      let url = "ws://127.0.0.1:8080";
+      let socket = new WebSocket(url);
+      console.log(socket);
+
+      socket.onopen = (openEvent) => {
+        console.log(openEvent)
+        form.className = "show";
+      };
+    });
+  </script>
+</body>
+
 </html>

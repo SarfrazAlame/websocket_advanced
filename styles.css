@@ -60,3 +60,7 @@ button:hover {
     /* when page first loads, we don't want user to see it. Remember, they have to first open up a WS connection */
     display: none; 
 }
+
+#form.show{
+    display: inline;
+}
